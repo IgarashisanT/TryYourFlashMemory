@@ -4,7 +4,7 @@ from lib.input import Input
 from lib.selector_group import Selector
 
 class SelectorGroup:
-    def __init__(self, amount, x,y,input:Input):
+    def __init__(self, amount, x, y,input:Input):
         self.amount = amount
         self.x = x
         self.y = y
@@ -13,7 +13,7 @@ class SelectorGroup:
         self.selectors = []
         
         for i in range(0,self.amount):
-            self.selectors.append(Selector(10 + i * 5,40,pyxel.COLOR_WHITE,self.input))
+            self.selectors.append(Selector(self.x + i * 5, self.y, pyxel.COLOR_WHITE, self.input))
         self.selectors[0].activate()
 
     def update(self):

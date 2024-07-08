@@ -1,7 +1,15 @@
 import pyxel as pyxel
 
 from constants import Difficulty
+from constants import Window
+from constants.general import General
 from lib.input import Input
+
+TITLE_X = (Window.WIDTH - len(General.GAME_TITLE) * 4) / 2
+TITLE_Y = Window.HEIGHT / 4
+
+MENU_TOP_X = ( Window.WIDTH - 16 * 4 ) / 2
+MENU_TOP_Y = Window.HEIGHT * 3 / 4
 
 class TitleScene:
     def __init__(self, game) -> None:
@@ -10,19 +18,19 @@ class TitleScene:
         
         self.selections = {
             0 : {
-                "loc" : [96,112],
+                "loc" : [MENU_TOP_X,MENU_TOP_Y],
                 "label" : "EASY   (5 digits)",
                 "action" : self.game.go_to_game,
                 "difficulty":Difficulty.EASY,
             },
             1 : {
-                "loc" : [96,128],
+                "loc" : [MENU_TOP_X,MENU_TOP_Y + 10],
                 "label" : "NORMAL (7 digits)",
                 "action" : self.game.go_to_game,
                 "difficulty":Difficulty.NORMAL,
             },
             2 : {
-                "loc" : [96,144],
+                "loc" : [MENU_TOP_X,MENU_TOP_Y + 20],
                 "label" : "HARD   (10 digits)",
                 "action" : self.game.go_to_game,
                 "difficulty":Difficulty.HARD,
@@ -58,4 +66,4 @@ class TitleScene:
 
             pyxel.text(loc[0],loc[1],v["label"],pyxel.COLOR_WHITE)
 
-            pyxel.text(96,40,"TRY FLASH MEMORY",pyxel.COLOR_WHITE)
+            pyxel.text(TITLE_X, TITLE_Y, General.GAME_TITLE, pyxel.COLOR_WHITE)

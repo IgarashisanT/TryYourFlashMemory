@@ -1,4 +1,4 @@
 class Window:
-    WIDTH = 256
-    HEIGHT = 224
+    WIDTH = 240
+    HEIGHT = 240
     TITLE = "Try Flash Memory"

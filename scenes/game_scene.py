@@ -36,7 +36,7 @@ class GameScene:
         if self.difficulty == Difficulty.HARD:
             self.digit = 10
         
-        self.selector_group = SelectorGroup(self.digit,30,40,self.input)
+        self.selector_group = SelectorGroup(self.digit,( Window.WIDTH - self.digit * 5 ) / 2, 40,self.input)
         self.answer = self.__generate_random_number_string(self.digit)
     
     def on_exit(self):
@@ -122,12 +122,13 @@ class GameScene:
     
     def draw_check(self):
         self.selector_group.draw()
-        pyxel.text(70,(Window.HEIGHT - 8) / 2,self.result,pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2,self.result,pyxel.COLOR_WHITE)
         if self.result == 'INCORRECT':
-            pyxel.text(70,(Window.HEIGHT - 8) / 2 + 10,'' + str(self.__get_correct_amount()) + ' / ' + str(self.digit),pyxel.COLOR_WHITE)
-            pyxel.text(70,(Window.HEIGHT - 8) / 2 + 20,'Correct answer is ' + self.answer,pyxel.COLOR_WHITE)
+            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 10,'' + str(self.__get_correct_amount()) + ' / ' + str(self.digit),pyxel.COLOR_WHITE)
+            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 20,'Correct answer is ' + self.answer,pyxel.COLOR_WHITE)
 
-        pyxel.text(70,150,'Press any button to go to Title.',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 7 / 8,'Press A/B button',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 7 / 8 + 8,'to go to Title.',pyxel.COLOR_WHITE)
 
     # endregion
 

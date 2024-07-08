@@ -1,0 +1,2 @@
+class General:
+    GAME_TITLE = "TRY YOUR FLASH MEMORY"
