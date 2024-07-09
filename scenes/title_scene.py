@@ -1,15 +1,13 @@
 import pyxel as pyxel
 
-from constants import Difficulty
-from constants import Window
-from constants.general import General
+from constants import Difficulty,Window,General,Resource
 from lib.input import Input
 
-TITLE_X = (Window.WIDTH - len(General.GAME_TITLE) * 4) / 2
-TITLE_Y = Window.HEIGHT / 4
+TITLE_X = ( Resource.Display.WIDTH - len(General.GAME_TITLE) * 4 + Resource.Display.TOP_X) / 2
+TITLE_Y = Resource.Display.HEIGHT / 4 + Resource.Display.TOP_Y
 
-MENU_TOP_X = ( Window.WIDTH - 16 * 4 ) / 2
-MENU_TOP_Y = Window.HEIGHT * 4 / 7
+MENU_TOP_X = ( Resource.Display.WIDTH - 16 * 4  + Resource.Display.TOP_X) / 2
+MENU_TOP_Y = Resource.Display.HEIGHT * 2 / 3 + Resource.Display.TOP_Y
 
 class TitleScene:
     def __init__(self, game) -> None:

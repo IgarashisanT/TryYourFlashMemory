@@ -1,7 +1,7 @@
 from enum import Enum,auto
 import random 
 import pyxel as pyxel
-from constants import Window, Difficulty
+from constants import Window, Difficulty, Resource
 from lib.input import Input
 from lib.selector_group import SelectorGroup
 
@@ -86,7 +86,10 @@ class GameScene:
             self.state = self.State.INPUT
 
     def draw_show(self):
-        pyxel.text((Window.WIDTH - len(self.answer) * 4) / 2,(Window.HEIGHT - 8) / 2,self.answer,pyxel.COLOR_WHITE)
+        top_x = (Resource.Display.WIDTH - len(self.answer) * (Resource.NumberGraphic.WIDTH) - ((len(self.answer) - 1 ) * Resource.NumberGraphic.MARGIN) + Resource.Display.TOP_X) / 2
+        top_y = (Resource.Display.HEIGHT - Resource.NumberGraphic.HEIGHT) / 2 + Resource.Display.TOP_Y
+        for i in range(0,len(self.answer)):
+            pyxel.blt(top_x + i * (Resource.NumberGraphic.WIDTH + Resource.NumberGraphic.MARGIN),top_y,0,Resource.NumberGraphic.TOP_U + Resource.NumberGraphic.WIDTH * int(self.answer[i]),Resource.NumberGraphic.TOP_V,Resource.NumberGraphic.WIDTH,Resource.NumberGraphic.HEIGHT,pyxel.COLOR_BLACK)
 
     # endregion
 
