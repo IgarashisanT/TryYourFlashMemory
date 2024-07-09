@@ -6,6 +6,7 @@ from lib.input import Input
 class App:
     def __init__(self):
         pyxel.init(Window.WIDTH, Window.HEIGHT,title=Window.TITLE)
+        pyxel.load('./assets/resource.pyxres')
 
         self.input = Input()
         self.game = Game(self)

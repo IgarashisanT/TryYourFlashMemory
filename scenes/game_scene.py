@@ -127,8 +127,8 @@ class GameScene:
             pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 10,'' + str(self.__get_correct_amount()) + ' / ' + str(self.digit),pyxel.COLOR_WHITE)
             pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 20,'Correct answer is ' + self.answer,pyxel.COLOR_WHITE)
 
-        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 7 / 8,'Press A/B button',pyxel.COLOR_WHITE)
-        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 7 / 8 + 8,'to go to Title.',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 5 / 8,'Press A/B button',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 5 / 8 + 8,'to go to Title.',pyxel.COLOR_WHITE)
 
     # endregion
 

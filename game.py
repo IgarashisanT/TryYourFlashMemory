@@ -1,4 +1,5 @@
 from enum import Enum, auto
+import pyxel
 
 from scenes.title_scene import TitleScene
 from scenes.game_scene import GameScene
@@ -46,5 +47,8 @@ class Game:
         self.scene.update()
     
     def draw(self):
+        # 背景は必ず描画する
+        pyxel.bltm(0,0,0,0,0,240,240)
+
         self.scene.draw()
     

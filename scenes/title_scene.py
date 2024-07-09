@@ -9,7 +9,7 @@ TITLE_X = (Window.WIDTH - len(General.GAME_TITLE) * 4) / 2
 TITLE_Y = Window.HEIGHT / 4
 
 MENU_TOP_X = ( Window.WIDTH - 16 * 4 ) / 2
-MENU_TOP_Y = Window.HEIGHT * 3 / 4
+MENU_TOP_Y = Window.HEIGHT * 4 / 7
 
 class TitleScene:
     def __init__(self, game) -> None:
