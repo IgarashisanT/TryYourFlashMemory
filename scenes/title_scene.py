@@ -60,7 +60,7 @@ class TitleScene:
             if k == self.selected_index:
                 selector_x = loc[0] - 8
                 selector_y = loc[1]
-                pyxel.tri(selector_x, selector_y, selector_x + 4, selector_y + 2, selector_x, selector_y + 4,pyxel.COLOR_YELLOW)
+                pyxel.tri(selector_x, selector_y, selector_x + 4, selector_y + 2, selector_x, selector_y + 4,pyxel.COLOR_WHITE)
 
             pyxel.text(loc[0],loc[1],v["label"],pyxel.COLOR_WHITE)
 

@@ -4,6 +4,7 @@ import pyxel as pyxel
 from constants import Window, Difficulty, Resource
 from lib.input import Input
 from lib.selector_group import SelectorGroup
+from lib.selector_group import Selector
 
 # 開始カウントダウン
 COUNTDOWN_NUM = 3
@@ -36,7 +37,10 @@ class GameScene:
         if self.difficulty == Difficulty.HARD:
             self.digit = 10
         
-        self.selector_group = SelectorGroup(self.digit,( Window.WIDTH - self.digit * 5 ) / 2, 40,self.input)
+        selector_group_top_x = (Resource.Display.WIDTH - self.digit * Selector.NumberGraphic.WIDTH - (self.digit - 1) * SelectorGroup.PADDING + Resource.Display.TOP_X) / 2
+        selector_group_top_y = (Resource.Display.HEIGHT - (Selector.NumberGraphic.HEIGHT + (Selector.ARROW_HEIGHT + SelectorGroup.PADDING) * 2 )) / 2 + Resource.Display.TOP_Y
+
+        self.selector_group = SelectorGroup(self.digit,selector_group_top_x, selector_group_top_y,self.input)
         self.answer = self.__generate_random_number_string(self.digit)
     
     def on_exit(self):
@@ -73,7 +77,9 @@ class GameScene:
                 self.state = self.State.SHOW
 
     def draw_count(self):
-        pyxel.text((Window.WIDTH - 2) / 2,(Window.HEIGHT - 8) / 2,str(self.count),pyxel.COLOR_WHITE)
+        count_x = (Resource.Display.WIDTH - 4 + Resource.Display.TOP_X) / 2
+        count_y = (Resource.Display.HEIGHT - 8 ) / 2 + Resource.Display.TOP_Y
+        pyxel.text(count_x, count_y,str(self.count),pyxel.COLOR_WHITE)
 
     # endregion
 
@@ -86,10 +92,10 @@ class GameScene:
             self.state = self.State.INPUT
 
     def draw_show(self):
-        top_x = (Resource.Display.WIDTH - len(self.answer) * (Resource.NumberGraphic.WIDTH) - ((len(self.answer) - 1 ) * Resource.NumberGraphic.MARGIN) + Resource.Display.TOP_X) / 2
-        top_y = (Resource.Display.HEIGHT - Resource.NumberGraphic.HEIGHT) / 2 + Resource.Display.TOP_Y
+        top_x = (Resource.Display.WIDTH - len(self.answer) * (Selector.NumberGraphic.WIDTH) - ((len(self.answer) - 1 ) * SelectorGroup.PADDING) + Resource.Display.TOP_X) / 2
+        top_y = (Resource.Display.HEIGHT - Selector.NumberGraphic.HEIGHT) / 2 + Resource.Display.TOP_Y
         for i in range(0,len(self.answer)):
-            pyxel.blt(top_x + i * (Resource.NumberGraphic.WIDTH + Resource.NumberGraphic.MARGIN),top_y,0,Resource.NumberGraphic.TOP_U + Resource.NumberGraphic.WIDTH * int(self.answer[i]),Resource.NumberGraphic.TOP_V,Resource.NumberGraphic.WIDTH,Resource.NumberGraphic.HEIGHT,pyxel.COLOR_BLACK)
+            pyxel.blt(top_x + i * (Selector.NumberGraphic.WIDTH + SelectorGroup.PADDING),top_y,0,Selector.NumberGraphic.TOP_U + Selector.NumberGraphic.WIDTH * int(self.answer[i]),Selector.NumberGraphic.TOP_V,Selector.NumberGraphic.WIDTH,Selector.NumberGraphic.HEIGHT,pyxel.COLOR_BLACK)
 
     # endregion
 
@@ -125,13 +131,13 @@ class GameScene:
     
     def draw_check(self):
         self.selector_group.draw()
-        pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2,self.result,pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) * 3 / 5,self.result,pyxel.COLOR_WHITE)
         if self.result == 'INCORRECT':
-            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 10,'' + str(self.__get_correct_amount()) + ' / ' + str(self.digit),pyxel.COLOR_WHITE)
-            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 20,'Correct answer is ' + self.answer,pyxel.COLOR_WHITE)
+            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) * 3 / 5 + 10,'' + str(self.__get_correct_amount()) + ' / ' + str(self.digit),pyxel.COLOR_WHITE)
+            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) * 3 / 5 + 20,'Correct answer is ' + self.answer,pyxel.COLOR_WHITE)
 
-        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 5 / 8,'Press A/B button',pyxel.COLOR_WHITE)
-        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 5 / 8 + 8,'to go to Title.',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 3 / 5 + 30,'Press A/B button',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 3 / 5 + 40,'to go to Title.',pyxel.COLOR_WHITE)
 
     # endregion
 
