@@ -13,13 +13,19 @@ COUNTDOWN_UNIT_TICK = 30
 # フラッシュ表示
 SHOW_TICK = 30
 
+# 結果確認
+SELECTOR_GROUP_UP_TO_Y = Resource.Display.TOP_Y + 20
+RESULT_SHOW_UNIT_TICK = 10
+
 class GameScene:
 
     class State:
         COUNT = 1
         SHOW = auto()
         INPUT = auto()
-        CHECK = auto()
+        CHECK_1 = auto()    # 解答を上にスクロール
+        CHECK_2 = auto()    # 答え合わせ
+        CHECK_3 = auto()    # 結果表示
 
     def __init__(self, game) -> None:
         self.game = game
@@ -53,8 +59,13 @@ class GameScene:
             self.update_show()
         elif  self.state == self.State.INPUT:
             self.update_input()
-        elif  self.state == self.State.CHECK:
-            self.update_check()
+        elif  self.state == self.State.CHECK_1:
+            self.update_check_1()
+        elif  self.state == self.State.CHECK_2:
+            self.update_check_2()
+        elif  self.state == self.State.CHECK_3:
+            self.update_check_3()
+
 
     def draw(self):
         if self.state == self.State.COUNT:
@@ -63,8 +74,12 @@ class GameScene:
             self.draw_show()
         elif  self.state == self.State.INPUT:
             self.draw_input()
-        elif  self.state == self.State.CHECK:
-            self.draw_check()
+        elif  self.state == self.State.CHECK_1:
+            self.draw_check_1()
+        elif  self.state == self.State.CHECK_2:
+            self.draw_check_2()
+        elif  self.state == self.State.CHECK_3:
+            self.draw_check_3()
 
     # region カウントダウン
 
@@ -106,20 +121,50 @@ class GameScene:
 
         if self.input.has_tapped(Input.BUTTON_1) or \
             self.input.has_tapped(Input.BUTTON_2):
-            self.state = self.State.CHECK
+            self.tick_count = 0
+            self.state = self.State.CHECK_1
     
     def draw_input(self):
         self.selector_group.draw()
 
     # endregion
 
-    # region 結果確認
+    # region 結果確認1
 
-    def update_check(self):
+    def update_check_1(self):
+        self.selector_group.change_to_readonly()
+        self.selector_group.set_y(self.selector_group.y - 1)
+        if self.selector_group.y == SELECTOR_GROUP_UP_TO_Y:
+            self.tick_count = 0
+            self.state = self.State.CHECK_2
+    
+    def draw_check_1(self):
+        self.selector_group.draw()
+
+    # endregion
+
+    # region 結果確認2
+
+    def update_check_2(self):
         self.tick_count += 1
+        if self.tick_count == RESULT_SHOW_UNIT_TICK:
+            self.tick_count = 0
+            if self.selector_group.all_results_shown():
+                self.state = self.State.CHECK_3
+            else:
+                self.selector_group.show_next_result(self.answer)
+    
+    def draw_check_2(self):
+        self.selector_group.draw()
 
-        # TODO 実装
-        if self.tick_count == 1:
+    # endregion
+
+    # region 結果確認3
+
+    def update_check_3(self):
+
+        if self.tick_count == 0:
+            self.tick_count += 1
             if self.__get_correct_amount() == len(self.answer):
                 self.result = 'CORRECT'
             else:
@@ -129,15 +174,15 @@ class GameScene:
             self.input.has_tapped(Input.BUTTON_2):
             self.state = self.game.go_to_title()
     
-    def draw_check(self):
+    def draw_check_3(self):
         self.selector_group.draw()
-        pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) * 3 / 5,self.result,pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2,self.result,pyxel.COLOR_WHITE)
         if self.result == 'INCORRECT':
-            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) * 3 / 5 + 10,'' + str(self.__get_correct_amount()) + ' / ' + str(self.digit),pyxel.COLOR_WHITE)
-            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) * 3 / 5 + 20,'Correct answer is ' + self.answer,pyxel.COLOR_WHITE)
+            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 10,'' + str(self.__get_correct_amount()) + ' / ' + str(self.digit),pyxel.COLOR_WHITE)
+            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 20,'Correct answer is ' + self.answer,pyxel.COLOR_WHITE)
 
-        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 3 / 5 + 30,'Press A/B button',pyxel.COLOR_WHITE)
-        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT * 3 / 5 + 40,'to go to Title.',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT / 2 + 30,'Press A/B button',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT / 2 + 40,'to go to Title.',pyxel.COLOR_WHITE)
 
     # endregion
 
