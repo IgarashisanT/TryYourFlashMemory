@@ -167,6 +167,7 @@ class GameScene:
             self.tick_count += 1
             if self.__get_correct_amount() == len(self.answer):
                 self.result = 'CORRECT'
+                self.game.game_vars.cleared_difficulties.append(self.difficulty)
             else:
                 self.result = 'INCORRECT'
 
@@ -176,13 +177,17 @@ class GameScene:
     
     def draw_check_3(self):
         self.selector_group.draw()
-        pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2,self.result,pyxel.COLOR_WHITE)
-        if self.result == 'INCORRECT':
-            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 10,'' + str(self.__get_correct_amount()) + ' / ' + str(self.digit),pyxel.COLOR_WHITE)
-            pyxel.text((Window.WIDTH - 24 * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 20,'Correct answer is ' + self.answer,pyxel.COLOR_WHITE)
+        if self.result == 'CORRECT':
+            result = 'CORRECT'
+        else:
+            result = 'INCORRECT ( ' + str(self.__get_correct_amount()) + ' / ' + str(self.digit) + ' )'
+            remarks = 'Correct answer is ' + self.answer
+            pyxel.text((Window.WIDTH - len(remarks) * 4 )/ 2,(Window.HEIGHT - 8) / 2 + 10, remarks,pyxel.COLOR_WHITE)
 
-        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT / 2 + 30,'Press A/B button',pyxel.COLOR_WHITE)
-        pyxel.text((Window.WIDTH - 16 * 4 )/ 2,Window.HEIGHT / 2 + 40,'to go to Title.',pyxel.COLOR_WHITE)
+        pyxel.text((Window.WIDTH - len(result) * 4 )/ 2,(Window.HEIGHT - 8) / 2, result,pyxel.COLOR_WHITE)
+
+        guide = 'Press A/B button to go to Title'
+        pyxel.text((Window.WIDTH - len(guide) * 4 )/ 2,Window.HEIGHT / 2 + 30, guide,pyxel.COLOR_WHITE)
 
     # endregion
 
