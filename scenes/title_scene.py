@@ -7,7 +7,27 @@ TITLE_X = ( Resource.Display.WIDTH - len(General.GAME_TITLE) * 4 + Resource.Disp
 TITLE_Y = Resource.Display.HEIGHT / 4 + Resource.Display.TOP_Y
 
 MENU_TOP_X = ( Resource.Display.WIDTH - 16 * 4  + Resource.Display.TOP_X) / 2
-MENU_TOP_Y = Resource.Display.HEIGHT * 2 / 3 + Resource.Display.TOP_Y
+MENU_TOP_Y = Resource.Display.HEIGHT * 5 / 7 + Resource.Display.TOP_Y
+
+LOGO_PADDING_Y = 1
+LOGO_1_U = 0
+LOGO_1_V = 32
+LOGO_1_W = 41
+LOGO_1_H  = 16
+LOGO_1_X = Resource.Display.TOP_X + (Resource.Display.WIDTH - LOGO_1_W) / 2
+LOGO_1_Y = Resource.Display.TOP_Y + 34
+LOGO_2_U = 0
+LOGO_2_V  = 48
+LOGO_2_W = 55
+LOGO_2_H  = 16
+LOGO_2_X = Resource.Display.TOP_X + (Resource.Display.WIDTH - LOGO_2_W) / 2
+LOGO_2_Y = LOGO_1_Y + LOGO_1_H + LOGO_PADDING_Y
+LOGO_3_U = 0
+LOGO_3_V  = 64
+LOGO_3_W = 153
+LOGO_3_H  = 16
+LOGO_3_X = Resource.Display.TOP_X + (Resource.Display.WIDTH - LOGO_3_W) / 2
+LOGO_3_Y = LOGO_2_Y + LOGO_2_H + LOGO_PADDING_Y
 
 CLEARED_ICON_U = 0
 CLEARED_ICON_V = 24
@@ -69,9 +89,12 @@ class TitleScene:
 
             pyxel.text(loc[0],loc[1],v["label"],pyxel.COLOR_WHITE)
 
-            # TODO クリア済難易度( = game.game_vars.cleared_difficultiesに存在するもの)には印をつける
+            # クリア済難易度( = game.game_vars.cleared_difficultiesに存在するもの)には印をつける
             if v["difficulty"] in self.game.game_vars.cleared_difficulties :
                 a = []
                 pyxel.blt(loc[0] + 75, loc[1], 0, CLEARED_ICON_U, CLEARED_ICON_V, CLEARED_ICON_W, CLEARED_ICON_H, pyxel.COLOR_BLACK)
 
-            pyxel.text(TITLE_X, TITLE_Y, General.GAME_TITLE, pyxel.COLOR_WHITE)
+            # pyxel.text(TITLE_X, TITLE_Y, General.GAME_TITLE, pyxel.COLOR_WHITE)
+            pyxel.blt(LOGO_1_X, LOGO_1_Y, 0, LOGO_1_U, LOGO_1_V, LOGO_1_W, LOGO_1_H, pyxel.COLOR_BLACK)
+            pyxel.blt(LOGO_2_X, LOGO_2_Y, 0, LOGO_2_U, LOGO_2_V, LOGO_2_W, LOGO_2_H, pyxel.COLOR_BLACK)
+            pyxel.blt(LOGO_3_X, LOGO_3_Y,  0, LOGO_3_U, LOGO_3_V, LOGO_3_W, LOGO_3_H, pyxel.COLOR_BLACK)

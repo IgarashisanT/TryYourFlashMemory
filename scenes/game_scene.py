@@ -14,7 +14,7 @@ COUNTDOWN_UNIT_TICK = 30
 SHOW_TICK = 30
 
 # 結果確認
-SELECTOR_GROUP_UP_TO_Y = Resource.Display.TOP_Y + 20
+SELECTOR_GROUP_UP_TO_Y = Resource.Display.TOP_Y + 30
 RESULT_SHOW_UNIT_TICK = 10
 
 class GameScene:
@@ -43,8 +43,8 @@ class GameScene:
         if self.difficulty == Difficulty.HARD:
             self.digit = 10
         
-        selector_group_top_x = (Resource.Display.WIDTH - self.digit * Selector.NumberGraphic.WIDTH - (self.digit - 1) * SelectorGroup.PADDING + Resource.Display.TOP_X) / 2
-        selector_group_top_y = (Resource.Display.HEIGHT - (Selector.NumberGraphic.HEIGHT + (Selector.ARROW_HEIGHT + SelectorGroup.PADDING) * 2 )) / 2 + Resource.Display.TOP_Y
+        selector_group_top_x = Resource.Display.TOP_X + (Resource.Display.WIDTH - self.digit * Selector.NumberGraphic.WIDTH - (self.digit - 1) * SelectorGroup.PADDING) / 2
+        selector_group_top_y = (Resource.Display.TOP_Y + Resource.Display.HEIGHT - (Selector.NumberGraphic.HEIGHT + (Selector.ARROW_HEIGHT + SelectorGroup.PADDING) * 2 )) / 2 + Resource.Display.TOP_Y
 
         self.selector_group = SelectorGroup(self.digit,selector_group_top_x, selector_group_top_y,self.input)
         self.answer = self.__generate_random_number_string(self.digit)
@@ -92,8 +92,8 @@ class GameScene:
                 self.state = self.State.SHOW
 
     def draw_count(self):
-        count_x = (Resource.Display.WIDTH - 4 + Resource.Display.TOP_X) / 2
-        count_y = (Resource.Display.HEIGHT - 8 ) / 2 + Resource.Display.TOP_Y
+        count_x = Resource.Display.TOP_X + (Resource.Display.WIDTH - 4) / 2
+        count_y = (Resource.Display.TOP_Y + Resource.Display.HEIGHT - 8 ) / 2 + Resource.Display.TOP_Y
         pyxel.text(count_x, count_y,str(self.count),pyxel.COLOR_WHITE)
 
     # endregion
@@ -107,8 +107,8 @@ class GameScene:
             self.state = self.State.INPUT
 
     def draw_show(self):
-        top_x = (Resource.Display.WIDTH - len(self.answer) * (Selector.NumberGraphic.WIDTH) - ((len(self.answer) - 1 ) * SelectorGroup.PADDING) + Resource.Display.TOP_X) / 2
-        top_y = (Resource.Display.HEIGHT - Selector.NumberGraphic.HEIGHT) / 2 + Resource.Display.TOP_Y
+        top_x = Resource.Display.TOP_X + (Resource.Display.WIDTH - len(self.answer) * (Selector.NumberGraphic.WIDTH) - ((len(self.answer) - 1 ) * SelectorGroup.PADDING)) / 2
+        top_y = (Resource.Display.TOP_Y + Resource.Display.HEIGHT - Selector.NumberGraphic.HEIGHT) / 2 + Resource.Display.TOP_Y
         for i in range(0,len(self.answer)):
             pyxel.blt(top_x + i * (Selector.NumberGraphic.WIDTH + SelectorGroup.PADDING),top_y,0,Selector.NumberGraphic.TOP_U + Selector.NumberGraphic.WIDTH * int(self.answer[i]),Selector.NumberGraphic.TOP_V,Selector.NumberGraphic.WIDTH,Selector.NumberGraphic.HEIGHT,pyxel.COLOR_BLACK)
 
