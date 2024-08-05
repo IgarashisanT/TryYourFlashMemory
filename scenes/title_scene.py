@@ -6,7 +6,7 @@ from lib.input import Input
 TITLE_X = ( Resource.Display.WIDTH - len(General.GAME_TITLE) * 4 + Resource.Display.TOP_X) / 2
 TITLE_Y = Resource.Display.HEIGHT / 4 + Resource.Display.TOP_Y
 
-MENU_TOP_X = ( Resource.Display.WIDTH - 16 * 4  + Resource.Display.TOP_X) / 2
+MENU_TOP_X = ( Resource.Display.WIDTH - 16 * 4 ) / 2  + Resource.Display.TOP_X
 MENU_TOP_Y = Resource.Display.HEIGHT * 5 / 7 + Resource.Display.TOP_Y
 
 LOGO_PADDING_Y = 1
