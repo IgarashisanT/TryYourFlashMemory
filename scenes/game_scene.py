@@ -150,6 +150,11 @@ class GameScene:
         if self.tick_count == RESULT_SHOW_UNIT_TICK:
             self.tick_count = 0
             if self.selector_group.all_results_shown():
+                if self.__get_correct_amount() == len(self.answer):
+                    self.result = 'CORRECT'
+                    self.game.game_vars.cleared_difficulties.append(self.difficulty)
+                else:
+                    self.result = 'INCORRECT'
                 self.state = self.State.CHECK_3
             else:
                 self.selector_group.show_next_result(self.answer)
@@ -162,15 +167,6 @@ class GameScene:
     # region 結果確認3
 
     def update_check_3(self):
-
-        if self.tick_count == 0:
-            self.tick_count += 1
-            if self.__get_correct_amount() == len(self.answer):
-                self.result = 'CORRECT'
-                self.game.game_vars.cleared_difficulties.append(self.difficulty)
-            else:
-                self.result = 'INCORRECT'
-
         if self.input.has_tapped(Input.BUTTON_1) or \
             self.input.has_tapped(Input.BUTTON_2):
             self.state = self.game.go_to_title()
@@ -178,7 +174,7 @@ class GameScene:
     def draw_check_3(self):
         self.selector_group.draw()
         if self.result == 'CORRECT':
-            result = 'CORRECT'
+            result = 'CORRECT!'
         else:
             result = 'INCORRECT ( ' + str(self.__get_correct_amount()) + ' / ' + str(self.digit) + ' )'
             remarks = 'Correct answer is ' + self.answer
