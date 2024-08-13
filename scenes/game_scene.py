@@ -169,7 +169,10 @@ class GameScene:
     def update_check_3(self):
         if self.input.has_tapped(Input.BUTTON_1) or \
             self.input.has_tapped(Input.BUTTON_2):
-            self.state = self.game.go_to_title()
+            if self.__is_all_clear():
+                self.state = self.game.go_to_clear()
+            else:
+                self.state = self.game.go_to_title()
     
     def draw_check_3(self):
         self.selector_group.draw()
@@ -211,5 +214,10 @@ class GameScene:
             if user_input[i:i+1] == self.answer[i:i+1]:
                 correct_amount += 1
         return correct_amount
+
+    # 全難易度をクリアしたか判定する
+    def __is_all_clear(self):
+        enum_values = [e for e in Difficulty]
+        return all(value in self.game.game_vars.cleared_difficulties for value in enum_values)
 
     # endregion

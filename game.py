@@ -3,12 +3,14 @@ import pyxel
 
 from scenes.title_scene import TitleScene
 from scenes.game_scene import GameScene
+from scenes.clear_scene import ClearScene
 from game_vars import GameVars
 
 class Scene(Enum):
     NONE = 0
     TITLE = auto()
     GAME = auto()
+    CLEAR = auto()
 
 class Game:
     """
@@ -29,12 +31,17 @@ class Game:
         self.game_vars.new_game(difficulty)
         self.next_scene = Scene.GAME
 
+    def go_to_clear(self):
+        self.next_scene = Scene.CLEAR
+
     def switch_scene(self):
         new_scene = None
         if self.next_scene == Scene.TITLE:
             new_scene = TitleScene
         elif self.next_scene == Scene.GAME:
             new_scene = GameScene
+        elif self.next_scene == Scene.CLEAR:
+            new_scene = ClearScene
         else:
             return
         self.scene.on_exit()
