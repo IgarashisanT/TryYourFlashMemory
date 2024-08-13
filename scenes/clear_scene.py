@@ -1,5 +1,4 @@
 import pyxel as pyxel
-
 from constants import Resource
 
 SHOW_TICKS = 90

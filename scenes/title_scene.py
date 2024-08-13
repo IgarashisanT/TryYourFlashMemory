@@ -1,6 +1,5 @@
 import pyxel as pyxel
-
-from constants import Difficulty,Window,General,Resource
+from constants import Difficulty, General, Resource
 from lib.input import Input
 
 TITLE_X = ( Resource.Display.WIDTH - len(General.GAME_TITLE) * 4 + Resource.Display.TOP_X) / 2

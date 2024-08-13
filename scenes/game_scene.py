@@ -1,10 +1,9 @@
-from enum import Enum,auto
+from enum import auto
 import random 
 import pyxel as pyxel
 from constants import Window, Difficulty, Resource
 from lib.input import Input
-from lib.selector_group import SelectorGroup
-from lib.selector_group import Selector
+from lib.selector_group import SelectorGroup,Selector
 
 # 開始カウントダウン
 COUNTDOWN_NUM = 3
