@@ -1,3 +1,4 @@
+from enum import auto
 import pyxel as pyxel
 from constants import Difficulty, General, Resource
 from lib.input import Input
@@ -33,10 +34,20 @@ CLEARED_ICON_V = 24
 CLEARED_ICON_W = 8
 CLEARED_ICON_H = 8
 
+SELECTED_TICK = 30
+BLINK_TICK_UNIT = 5
+
 class TitleScene:
+
+    class State:
+        SELECTING = 0
+        SELECTED = auto()
+
     def __init__(self, game) -> None:
         self.game = game
         self.input = self.game.app.input
+        self.state = self.State.SELECTING
+        self.tick_count = 0
         
         self.selections = {
             0 : {
@@ -65,23 +76,37 @@ class TitleScene:
         pyxel.stop()
 
     def update(self):
+        if self.state == self.State.SELECTING:
+            self.update_selecting()
+        elif  self.state == self.State.SELECTED:
+            self.update_selected()
+
+    def update_selecting(self):
         if self.input.has_tapped(Input.UP):
+            pyxel.play(3,Resource.Sound.SELECT)
             self.selected_index -= 1
             if self.selected_index < 0:
                 self.selected_index = 2
         elif self.input.has_tapped(Input.DOWN):
+            pyxel.play(3,Resource.Sound.SELECT)
             self.selected_index += 1
             if self.selected_index > 2:
                 self.selected_index = 0
 
         if self.input.has_tapped(Input.BUTTON_1) or \
             self.input.has_tapped(Input.BUTTON_2):
+            pyxel.play(3, Resource.Sound.START)
+            self.state = self.State.SELECTED
+    
+    def update_selected(self):
+        self.tick_count += 1
+        if self.tick_count == SELECTED_TICK:
             (self.selections[self.selected_index]["action"])(self.selections[self.selected_index]["difficulty"])
     
     def draw(self):
         for k, v in self.selections.items():
             loc = v["loc"]
-            if k == self.selected_index:
+            if k == self.selected_index and self.tick_count // BLINK_TICK_UNIT % 2 == 0:
                 selector_x = loc[0] - 8
                 selector_y = loc[1]
                 pyxel.tri(selector_x, selector_y, selector_x + 4, selector_y + 2, selector_x, selector_y + 4,pyxel.COLOR_WHITE)

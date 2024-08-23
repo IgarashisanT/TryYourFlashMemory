@@ -14,7 +14,7 @@ SHOW_TICK = 30
 
 # 結果確認
 SELECTOR_GROUP_UP_TO_Y = Resource.Display.TOP_Y + 30
-RESULT_SHOW_UNIT_TICK = 10
+RESULT_SHOW_UNIT_TICK = 12
 
 class GameScene:
 
@@ -83,6 +83,8 @@ class GameScene:
     # region カウントダウン
 
     def update_count(self):
+        if self.tick_count == 0:
+            pyxel.play(3, Resource.Sound.COUNT)
         self.tick_count += 1
         if self.tick_count == COUNTDOWN_UNIT_TICK:
             self.tick_count = 0
@@ -156,7 +158,10 @@ class GameScene:
                     self.result = 'INCORRECT'
                 self.state = self.State.CHECK_3
             else:
-                self.selector_group.show_next_result(self.answer)
+                if self.selector_group.show_next_result(self.answer):
+                    pyxel.play(3, Resource.Sound.CORRECT)
+                else:
+                    pyxel.play(3, Resource.Sound.INCORRECT)
     
     def draw_check_2(self):
         self.selector_group.draw()

@@ -86,14 +86,16 @@ class SelectorGroup:
         結果アイコンをひとつ表示する
         (※左から順に表示していく)
         ※引数のanswerは正解の数字文字列
+        ※正解ならTrue, 不正解ならFalseを返却
         '''
         for i in range(0,self.amount):
             if self.selectors[i].state == Selector.State.INPUT:
                 if self.selectors[i].get_value() == answer[i]:
                     self.selectors[i].update_state(Selector.State.CORRECT)
+                    return True
                 else:
                     self.selectors[i].update_state(Selector.State.INCORRECT)
-                return
+                    return False
 
     def hide_all_results(self):
         '''
