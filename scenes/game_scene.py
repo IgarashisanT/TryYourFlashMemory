@@ -102,6 +102,8 @@ class GameScene:
     # region 表示
 
     def update_show(self):
+        if self.tick_count == 0:
+            pyxel.play(3, Resource.Sound.SHOW_NUMBER)
         self.tick_count += 1
         if self.tick_count == SHOW_TICK:
             self.tick_count = 0

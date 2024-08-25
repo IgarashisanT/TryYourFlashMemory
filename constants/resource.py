@@ -11,3 +11,5 @@ class Resource:
         COUNT = 2
         SELECT = 3
         START = 4
+        SHOW_NUMBER = 5
+        ALL_CLEAR = 6

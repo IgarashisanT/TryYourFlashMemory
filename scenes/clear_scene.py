@@ -20,6 +20,8 @@ class ClearScene:
         pyxel.stop()
 
     def update(self):
+        if self.tick_count == 0:
+            pyxel.play(3, Resource.Sound.ALL_CLEAR)
         self.tick_count += 1
         if self.tick_count == SHOW_TICKS:
             self.state = self.game.go_to_title()
