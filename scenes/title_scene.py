@@ -1,10 +1,7 @@
 from enum import auto
 import pyxel as pyxel
-from constants import Difficulty, General, Resource
+from constants import Difficulty, Resource
 from lib.input import Input
-
-TITLE_X = ( Resource.Display.WIDTH - len(General.GAME_TITLE) * 4 + Resource.Display.TOP_X) / 2
-TITLE_Y = Resource.Display.HEIGHT / 4 + Resource.Display.TOP_Y
 
 MENU_TOP_X = ( Resource.Display.WIDTH - 16 * 4 ) / 2  + Resource.Display.TOP_X
 MENU_TOP_Y = Resource.Display.HEIGHT * 5 / 7 + Resource.Display.TOP_Y
@@ -118,7 +115,6 @@ class TitleScene:
                 a = []
                 pyxel.blt(loc[0] + 75, loc[1], 0, CLEARED_ICON_U, CLEARED_ICON_V, CLEARED_ICON_W, CLEARED_ICON_H, pyxel.COLOR_BLACK)
 
-            # pyxel.text(TITLE_X, TITLE_Y, General.GAME_TITLE, pyxel.COLOR_WHITE)
             pyxel.blt(LOGO_1_X, LOGO_1_Y, 0, LOGO_1_U, LOGO_1_V, LOGO_1_W, LOGO_1_H, pyxel.COLOR_BLACK)
             pyxel.blt(LOGO_2_X, LOGO_2_Y, 0, LOGO_2_U, LOGO_2_V, LOGO_2_W, LOGO_2_H, pyxel.COLOR_BLACK)
             pyxel.blt(LOGO_3_X, LOGO_3_Y,  0, LOGO_3_U, LOGO_3_V, LOGO_3_W, LOGO_3_H, pyxel.COLOR_BLACK)
