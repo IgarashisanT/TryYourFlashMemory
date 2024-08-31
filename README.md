@@ -7,7 +7,7 @@
 1. 難易度を選択してください。
 1. ゲームが開始します。一瞬だけ数字が表示されます。
 1. 表示された数字を答えてください。
-1. 全ての数字が一致すればクリアとなります。
+1. 全ての数字が一致すればその難易度はクリアとなります。
 
 ## 関連リンク
-N/A
+- [Pyxel Web Launcher](https://kitao.github.io/pyxel/wasm/launcher/?play=IgarashisanT.TryYourFlashMemory.TryYourFlashMemory&gamepad=enabled)
