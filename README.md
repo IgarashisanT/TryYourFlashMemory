@@ -11,7 +11,7 @@
 
 ## スクリーンショット
 ![title](./screenshots/01_title.png)
-![result](./screenshots/02_Result.png)
+![result](./screenshots/02_result.png)
 
 ## GIFアニメ
 ![gif](./screenshots/03_gif.gif)
