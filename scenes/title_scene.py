@@ -110,16 +110,7 @@ class TitleScene:
             self.update_confirm_exit()
 
     def update_selecting(self):
-        if self.input.has_tapped(Input.UP):
-            pyxel.play(3,Resource.Sound.SELECT)
-            self.selected_index -= 1
-            if self.selected_index < 0:
-                self.selected_index = len(self.menu_selections) - 1
-        elif self.input.has_tapped(Input.DOWN):
-            pyxel.play(3,Resource.Sound.SELECT)
-            self.selected_index += 1
-            if self.selected_index > len(self.menu_selections) - 1:
-                self.selected_index = 0
+        self.selected_index = self.__update_index(self.selected_index, self.menu_selections)
 
         if self.input.has_tapped(Input.BUTTON_1) or \
             self.input.has_tapped(Input.BUTTON_2):
@@ -135,16 +126,7 @@ class TitleScene:
             (self.menu_selections[self.selected_index]["action"])(self.menu_selections[self.selected_index]["difficulty"])
     
     def update_confirm_exit(self):
-        if self.input.has_tapped(Input.UP):
-            pyxel.play(3,Resource.Sound.SELECT)
-            self.selected_index_confirm -= 1
-            if self.selected_index_confirm < 0:
-                self.selected_index_confirm = len(self.confirm_selections) - 1
-        elif self.input.has_tapped(Input.DOWN):
-            pyxel.play(3,Resource.Sound.SELECT)
-            self.selected_index_confirm += 1
-            if self.selected_index_confirm > len(self.confirm_selections) - 1:
-                self.selected_index_confirm = 0
+        self.selected_index_confirm = self.__update_index(self.selected_index_confirm, self.confirm_selections)
 
         if self.input.has_tapped(Input.BUTTON_1) or \
             self.input.has_tapped(Input.BUTTON_2):
@@ -188,4 +170,19 @@ class TitleScene:
                         pyxel.tri(selector_x, selector_y, selector_x + 4, selector_y + 2, selector_x, selector_y + 4,pyxel.COLOR_WHITE)
                     pyxel.text(loc_confirm[0],loc_confirm[1],v["label"],pyxel.COLOR_WHITE)
 
-                
+    def __update_index(self, index, selections):
+        '''
+        選択中の選択肢のインデックス番号を更新する
+        '''
+        if self.input.has_tapped(Input.UP):
+            pyxel.play(3,Resource.Sound.SELECT)
+            index -= 1
+            if index < 0:
+                index = len(selections) - 1
+        elif self.input.has_tapped(Input.DOWN):
+            pyxel.play(3,Resource.Sound.SELECT)
+            index += 1
+            if index > len(selections) - 1:
+                index = 0
+        
+        return index
